@@ -1,0 +1,45 @@
+// Tiny sprinkle of logic. No frameworks. No nonsense.
+
+// Mobile nav toggle
+const navToggle = document.querySelector(".nav-toggle");
+const navLinks = document.querySelector(".nav-links");
+
+if (navToggle && navLinks) {
+  navToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+  });
+
+  navLinks.addEventListener("click", (e) => {
+    if (e.target.tagName === "A") {
+      navLinks.classList.remove("open");
+    }
+  });
+}
+
+// FAQ accordion
+const faqItems = document.querySelectorAll(".faq-item");
+
+faqItems.forEach((item) => {
+  const button = item.querySelector(".faq-question");
+  const answer = item.querySelector(".faq-answer");
+
+  button.addEventListener("click", () => {
+    const isOpen = answer.classList.contains("open");
+
+    // Close all
+    faqItems.forEach((other) => {
+      const a = other.querySelector(".faq-answer");
+      const icon = other.querySelector(".faq-icon");
+      a.classList.remove("open");
+      a.style.maxHeight = null;
+      icon.textContent = "+";
+    });
+
+    // Toggle current
+    if (!isOpen) {
+      answer.classList.add("open");
+      answer.style.maxHeight = answer.scrollHeight + "px";
+      item.querySelector(".faq-icon").textContent = "–";
+    }
+  });
+});
